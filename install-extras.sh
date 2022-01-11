@@ -5,8 +5,8 @@
 # Xubuntu 20.04 installs
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
 
-# install htop, mc, and curl because they're both awesome command line tools
-sudo apt -y install htop mc curl
+# install htop, mc, curl, git and build-essential because they're awesome tools
+sudo apt -y install htop mc curl git build-essential
 
 # install Timeshift for system backups
 echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
@@ -42,7 +42,7 @@ sudo apt -y install gstreamer1.0-plugins-ugly
 echo "Installing tuxpaint"
 sudo apt -y install tuxpaint
 
-# installing libdvdread7
+# installing DVD decryption software
 echo "Installing libdvd-pkg"
 sudo apt -y install libdvd-pkg
 sudo dpkg-reconfigure libdvd-pkg
