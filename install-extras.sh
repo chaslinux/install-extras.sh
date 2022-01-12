@@ -92,9 +92,7 @@ sudo apt -y install putty
 # install gnome-disk-utility
 sudo apt -y install gnome-disk-utility
 
-# install an old version of Adobe Acrobat Reader because the Canadian Government won't use open standards
-# and insists on using proprietary closed software for not readble on any BSD or Linux environment, excluding
-# people who use these environments from filling out important government forms.
+# install an old version of Adobe Acrobat Reader in case user needs to read "secure" PDFs
 sudo apt update
 sudo dpkg --add-architecture i386
 sudo apt -y install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386
