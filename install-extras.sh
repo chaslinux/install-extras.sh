@@ -12,6 +12,11 @@ sudo apt -y install htop mc curl git build-essential
 echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
 sudo apt -y install timeshift stacer steam ttf-mscorefonts-installer geany
 
+# Install OnlyOffice 7.0 since it looks a bit closer to MS Office
+wget https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
+sudo dpkg -i onlyoffice-desktopeditors_amd64.deb
+sudo apt -y --fix-broken install 
+
 # install Zoom for conferencing
 echo "Installing Zoom"
 wget https://zoom.us/client/latest/zoom_amd64.deb
