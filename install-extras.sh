@@ -5,6 +5,10 @@
 # Xubuntu 20.04 installs
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
 
+# Run updates first as some software may not install unless the system is
+# updated
+sudo apt update && sudo apt -y upgrade
+
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt -y install htop mc curl git build-essential
 
