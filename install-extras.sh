@@ -4,10 +4,22 @@
 # Installs a bunch of extra software that's useful for our
 # Xubuntu 20.04 installs
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
+#
+# Update 03/09/2022 - Added MS Office 265 web desktop apps, chromium, and freac
+# I'd like to make freac the default cd media player in the near future
 
 # Run updates first as some software may not install unless the system is
 # updated
 sudo apt update && sudo apt -y upgrade
+
+# install Microsoft Office 365 web apps
+sudo snap install --beta office365webdesktop
+
+# install chromium web browser
+sudo snap install chromium
+
+# install freac for audio CD playback and ripping
+sudo snap install freac
 
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt -y install htop mc curl git build-essential
