@@ -7,6 +7,9 @@
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
 #
 # Update 04/22/2022 - Added line to set VLC as default player for DVDs on Ubuntu Jammy
+# also shifted -y switch to the end of apt install programname since Linux Mint doesn't like
+# it after apt install. Added plank for Xubuntu 22.04 with a customization based on the software
+# installed here.
 # Update 03/09/2022 - Added MS Office 265 web desktop apps, chromium, and freac
 # I'd like to make freac the default cd media player in the near future
 
@@ -137,6 +140,10 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://';
 		echo 'Default DVD player set to VLC';	
+		sudo apt install plank -y
+		cp plank-dock1.tar.gz ~/.config/plank/dock1/launchers
+		tar -zxvf ~/config/plank/dock1/launchers/plank-dock1.tar.gz
 else
+		rm plank-dock1.tar.gz
 		echo 'Not focal';
 fi
