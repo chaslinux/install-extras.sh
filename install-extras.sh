@@ -126,3 +126,15 @@ echo "Installing lm-sensors"
 sudo apt -y install lm-sensors
 sudo sensors-detect
 sensors > /home/$USER/Desktop/sensors.txt
+
+# set VLC to be the default DVD player since parole doesn't play in Ubuntu 22.04
+
+distro=$(cat /etc/lsb-release | grep CODENAME)
+
+if [ $distro == 'DISTRIB_CODENAME=jammy' ]
+	then
+		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://';
+		echo 'Default DVD player set to VLC';	
+else
+		echo 'Not focal';
+fi
