@@ -13,6 +13,9 @@
 # Update 03/09/2022 - Added MS Office 265 web desktop apps, chromium, and freac
 # I'd like to make freac the default cd media player in the near future
 
+# set the current directory
+currentdir=$(pwd)
+
 # Run updates first as some software may not install unless the system is
 # updated
 sudo apt update && sudo apt upgrade -y
@@ -141,7 +144,7 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://';
 		echo 'Default DVD player set to VLC';	
 		sudo apt install plank -y
-		cp plank-dock1.tar.gz ~/.config/plank/dock1/launchers
+		cp $currentdir/plank-dock1.tar.gz ~/.config/plank/dock1/launchers
 		tar -zxvf ~/.config/plank/dock1/launchers/plank-dock1.tar.gz
 		plank &
 else
