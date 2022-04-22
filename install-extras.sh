@@ -37,14 +37,14 @@ echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
 sudo apt install timeshift stacer steam ttf-mscorefonts-installer geany -y
 
 # Install OnlyOffice 7.0 since it looks a bit closer to MS Office
-wget https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
-sudo dpkg -i onlyoffice-desktopeditors_amd64.deb
+wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
+sudo dpkg -i onlyoffice.deb
 sudo apt --fix-broken install -y
 
 # install Zoom for conferencing
 echo "Installing Zoom"
-wget https://zoom.us/client/latest/zoom_amd64.deb
-sudo dpkg -i zoom_amd64.deb
+wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
+sudo dpkg -i zoom.deb
 sudo apt --fix-broken install -y
 
 # install cheese
@@ -105,8 +105,8 @@ sudo apt install audacity -y
 sudo apt install neofetch -y
 
 # install phoronix-test-suite
-wget http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb
-sudo dpkg -i phoronix-test-suite_10.6.1_all.deb
+wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb
+sudo dpkg -i phoronix.deb
 sudo apt --fix-broken install -y
 
 # install hardinfo
@@ -125,8 +125,7 @@ sudo apt install gnome-disk-utility -y
 sudo apt update
 sudo dpkg --add-architecture i386
 sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y
-wget -O ~/adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb
-cd ~
+wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb
 sudo dpkg -i adobe.deb
 
 # set up the sensors
@@ -149,6 +148,12 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		tar -zxvf ~/.config/plank/dock1/launchers/plank-dock1.tar.gz
 		plank &
 else
+		cd $currentdir
 		rm plank-dock1.tar.gz
 		echo 'Not focal';
 fi
+
+# remove the old deb files
+cd $currentdir
+rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb
+
