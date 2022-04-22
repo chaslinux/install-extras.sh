@@ -142,7 +142,8 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		echo 'Default DVD player set to VLC';	
 		sudo apt install plank -y
 		cp plank-dock1.tar.gz ~/.config/plank/dock1/launchers
-		tar -zxvf ~/config/plank/dock1/launchers/plank-dock1.tar.gz
+		tar -zxvf ~/.config/plank/dock1/launchers/plank-dock1.tar.gz
+		plank &
 else
 		rm plank-dock1.tar.gz
 		echo 'Not focal';
