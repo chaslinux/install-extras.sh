@@ -145,7 +145,9 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		sudo apt install plank -y
 		mkdir -p ~/.config/plank/dock1/launchers
 		cp $currentdir/plank-dock1.tar.gz ~/.config/plank/dock1/launchers
-		tar -zxvf ~/.config/plank/dock1/launchers/plank-dock1.tar.gz
+		cd ~/.config/plank/dock1/launchers
+		tar -zxvf plank-dock1.tar.gz
+		cd $currentdir
 		plank &
 else
 		cd $currentdir
