@@ -173,6 +173,13 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://';
 		echo 'Default DVD player set to VLC';	
 		sudo apt install plank -y
+		# copy our custom plank launcher to /etc/skel so other new users get planked correctly		
+		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
+		sudo cp $currentdir/plank-dock1.tar.gz /etc/skel/.config/plank/dock1/launchers
+		cd /etc/skel/.config/plank/dock1/launchers
+		sudo tar -zxvf plank-dock1.tar.gz
+		# set up plank for the current user
+		cd $currentdir
 		mkdir -p ~/.config/plank/dock1/launchers
 		cp $currentdir/plank-dock1.tar.gz ~/.config/plank/dock1/launchers
 		cd ~/.config/plank/dock1/launchers
