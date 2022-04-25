@@ -37,15 +37,27 @@ echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
 sudo apt install timeshift stacer steam ttf-mscorefonts-installer geany -y
 
 # Install OnlyOffice 7.0 since it looks a bit closer to MS Office
-wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
-sudo dpkg -i onlyoffice.deb
-sudo apt --fix-broken install -y
+onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
+if [ ! "$onlyoffice" == "Status: install ok installed" ]
+	then
+		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb;
+		sudo dpkg -i onlyoffice.deb;
+		sudo apt --fix-broken install -y;
+	else
+		echo "OnlyOffice is already installed";
+fi
 
 # install Zoom for conferencing
-echo "Installing Zoom"
-wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
-sudo dpkg -i zoom.deb
-sudo apt --fix-broken install -y
+zoom=$(dpkg -s zoom | grep Status)
+if [ ! "$zoom" == "Status: install ok installed" ]
+	then
+		echo "Installing Zoom";
+		wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb;
+		sudo dpkg -i zoom.deb;
+		sudo apt --fix-broken install -y;
+	else
+		echo "Zoom is already installed";
+fi
 
 # install cheese
 echo "Installing Cheese"
@@ -105,9 +117,15 @@ sudo apt install audacity -y
 sudo apt install neofetch -y
 
 # install phoronix-test-suite
-wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb
-sudo dpkg -i phoronix.deb
-sudo apt --fix-broken install -y
+phoronix=$(dpkg -s phoronix-test-suite | grep Status)
+if [ ! "$phoronix" == "Status: install ok installed" ]
+	then
+		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb;
+		sudo dpkg -i phoronix.deb;
+		sudo apt --fix-broken install -y;
+	else
+		echo "Phoronix-test-suite is already installed.";
+fi
 
 # install hardinfo
 sudo apt install hardinfo -y
@@ -122,17 +140,29 @@ sudo apt install putty -y
 sudo apt install gnome-disk-utility -y
 
 # install an old version of Adobe Acrobat Reader in case user needs to read "secure" PDFs
-sudo apt update
-sudo dpkg --add-architecture i386
-sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y
-wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb
-sudo dpkg -i adobe.deb
+adobe=$(dpkg -s adobereader-enu | grep Status)
+if [ ! "$adobe" == "Status: install ok installed" ]
+	then
+		sudo apt update;
+		sudo dpkg --add-architecture i386;
+		sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y;
+		wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb;
+		sudo dpkg -i adobe.deb;
+	else
+		echo "Adobe Reader already installed.";
+fi
 
 # set up the sensors
-echo "Installing lm-sensors"
-sudo apt install lm-sensors -y
-sudo sensors-detect
-sensors > /home/$USER/Desktop/sensors.txt
+sensors=$(dpkg -s lm-sensors | grep Status)
+if [ ! "$sensors" == "Status: install ok installed" ]
+	then
+		echo "Installing lm-sensors";
+		sudo apt install lm-sensors -y;
+		sudo sensors-detect;
+		sensors > /home/$USER/Desktop/sensors.txt;
+	else
+		echo "Lm-sensors is already installed.";
+fi
 
 # set VLC to be the default DVD player since parole doesn't play in Ubuntu 22.04
 
@@ -149,11 +179,17 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		tar -zxvf plank-dock1.tar.gz
 		cd $currentdir
 		plank &
+
+		# Now make copy the plank .desktop file to autostart directories
+		mkdir -p ~/.config/autostart
+		cp $currentdir/plank.desktop ~/.config/autostart
+		sudo cp $currentdir/plank.desktop /etc/xdg/autostart
 else
 		cd $currentdir
 		rm plank-dock1.tar.gz
 		echo 'Not focal';
 fi
+
 
 # remove the old deb files
 cd $currentdir
