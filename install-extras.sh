@@ -2,10 +2,11 @@
 # Script by Charles McColm, cr@theworkingcentre.org
 # for The Working Centre's Computer Recycling Project
 # Installs a bunch of extra software that's useful for our
-# Xubuntu 20.04 installs & now Xubuntu 22.04
+# Xubuntu 20.04, 22.04, and now Linux Mint Una
 #
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
 #
+# Update 06/10/2022 - June update: added basic support for Linux Mint Una
 # Update 04/22/2022 - Added line to set VLC as default player for DVDs on Ubuntu Jammy
 # also shifted -y switch to the end of apt install programname since Linux Mint doesn't like
 # it after apt install. Added plank for Xubuntu 22.04 with a customization based on the software
@@ -20,14 +21,55 @@ currentdir=$(pwd)
 # updated
 sudo apt update && sudo apt upgrade -y
 
-# install Microsoft Office 365 web apps
-sudo snap install --beta office365webdesktop
+distro=$(cat /etc/lsb-release | grep CODENAME)
+if [ $distro == 'DISTRIB_CODENAME=jammy' || $distro == 'DISTRIB_CODENAME=focal' ]
+	then
+        # install Microsoft Office 365 web apps
+        sudo snap install --beta office365webdesktop;
 
-# install chromium web browser
-sudo snap install chromium
+        # install chromium web browser
+        sudo snap install chromium;
 
-# install freac for audio CD playback and ripping
-sudo snap install freac
+        # install freac for audio CD playback and ripping
+        sudo snap install freac;
+        # Install OnlyOffice 7.0 since it looks a bit closer to MS Office
+        onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
+        if [ ! "$onlyoffice" == "Status: install ok installed" ]
+        	then
+        		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb;
+        		sudo dpkg -i onlyoffice.deb;
+        		sudo apt --fix-broken install -y;
+        	else
+        		echo "OnlyOffice is already installed";
+        fi
+        # install Zoom for conferencing
+        zoom=$(dpkg -s zoom | grep Status)
+        if [ ! "$zoom" == "Status: install ok installed" ]
+	        then
+		        echo "Installing Zoom";
+		        wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb;
+		        sudo dpkg -i zoom.deb;
+		        sudo apt --fix-broken install -y;
+	        else
+		        echo "Zoom is already installed";
+        fi
+
+    else
+        echo "Not a modern version of *buntu";
+fi
+
+# This applies to Linux Mint "Una" only (install most of the stuff above without snaps!)
+if [ $distro == 'DISTRIB_CODENAME=una' ]
+    then
+        sudo apt install chromium -y;
+        sudo flatpak update -y
+        sudo flatpak install freac -y
+        sudo flatpak install onlyoffice -y
+        sudo flatpak install zoom -y
+    else
+        echo "Not Linux Mint Una";
+fi
+
 
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt install htop mc curl git build-essential -y
@@ -36,28 +78,6 @@ sudo apt install htop mc curl git build-essential -y
 echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
 sudo apt install timeshift stacer steam ttf-mscorefonts-installer geany -y
 
-# Install OnlyOffice 7.0 since it looks a bit closer to MS Office
-onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
-if [ ! "$onlyoffice" == "Status: install ok installed" ]
-	then
-		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb;
-		sudo dpkg -i onlyoffice.deb;
-		sudo apt --fix-broken install -y;
-	else
-		echo "OnlyOffice is already installed";
-fi
-
-# install Zoom for conferencing
-zoom=$(dpkg -s zoom | grep Status)
-if [ ! "$zoom" == "Status: install ok installed" ]
-	then
-		echo "Installing Zoom";
-		wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb;
-		sudo dpkg -i zoom.deb;
-		sudo apt --fix-broken install -y;
-	else
-		echo "Zoom is already installed";
-fi
 
 # install cheese
 echo "Installing Cheese"
@@ -164,8 +184,8 @@ if [ ! "$sensors" == "Status: install ok installed" ]
 		echo "Lm-sensors is already installed.";
 fi
 
+# This setting applies to Xubuntu 22.04 only
 # set VLC to be the default DVD player since parole doesn't play in Ubuntu 22.04
-
 distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
