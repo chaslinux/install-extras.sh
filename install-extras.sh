@@ -84,10 +84,6 @@ sudo apt install timeshift stacer steam ttf-mscorefonts-installer geany -y
 echo "Installing Cheese"
 sudo apt install cheese -y
 
-# installing stacer
-echo "Installing Stacer"
-sudo apt install stacer -y
-
 # installing VLC
 echo "Installing VLC"
 sudo apt install vlc -y
