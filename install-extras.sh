@@ -220,5 +220,12 @@ fi
 
 # remove the old deb files
 cd $currentdir
-rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb
+
+if [ $distro == 'DISTRIB_CODENAME=jammy' || $distro == 'DISTRIB_CODENAME=focal' ]
+	then
+		rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb;
+	else
+		rm adobe.deb phoronix.deb;
+fi
+
 
