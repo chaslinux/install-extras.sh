@@ -62,6 +62,7 @@ fi
 if [ $distro == 'DISTRIB_CODENAME=una' ]
     then
         sudo apt install chromium -y;
+	sudo apt install gimp -y;
         sudo flatpak update -y
         sudo flatpak install freac -y
         sudo flatpak install onlyoffice -y
