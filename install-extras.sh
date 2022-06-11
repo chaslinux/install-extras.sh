@@ -22,53 +22,53 @@ currentdir=$(pwd)
 sudo apt update && sudo apt upgrade -y
 
 distro=$(cat /etc/lsb-release | grep CODENAME)
-if [ $distro == 'DISTRIB_CODENAME=jammy' || $distro == 'DISTRIB_CODENAME=focal' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
 	then
         # install Microsoft Office 365 web apps
-        sudo snap install --beta office365webdesktop;
+        sudo snap install --beta office365webdesktop
 
         # install chromium web browser
-        sudo snap install chromium;
+        sudo snap install chromium
 
         # install freac for audio CD playback and ripping
-        sudo snap install freac;
+        sudo snap install freac
         # Install OnlyOffice 7.0 since it looks a bit closer to MS Office
         onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
         if [ ! "$onlyoffice" == "Status: install ok installed" ]
         	then
-        		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb;
-        		sudo dpkg -i onlyoffice.deb;
-        		sudo apt --fix-broken install -y;
+        		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
+        		sudo dpkg -i onlyoffice.deb
+        		sudo apt --fix-broken install -y
         	else
-        		echo "OnlyOffice is already installed";
+        		echo "OnlyOffice is already installed"
         fi
         # install Zoom for conferencing
         zoom=$(dpkg -s zoom | grep Status)
         if [ ! "$zoom" == "Status: install ok installed" ]
 	        then
-		        echo "Installing Zoom";
-		        wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb;
-		        sudo dpkg -i zoom.deb;
-		        sudo apt --fix-broken install -y;
+		        echo "Installing Zoom"
+		        wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
+		        sudo dpkg -i zoom.deb
+		        sudo apt --fix-broken install -y
 	        else
-		        echo "Zoom is already installed";
+		        echo "Zoom is already installed"
         fi
 
     else
-        echo "Not a modern version of *buntu";
+        echo "Not a modern version of *buntu"
 fi
 
 # This applies to Linux Mint "Una" only (install most of the stuff above without snaps!)
 if [ $distro == 'DISTRIB_CODENAME=una' ]
     then
-        sudo apt install chromium -y;
-	sudo apt install gimp -y;
+        sudo apt install chromium -y
+	sudo apt install gimp -y
         sudo flatpak update -y
         sudo flatpak install freac -y
         sudo flatpak install onlyoffice -y
         sudo flatpak install zoom -y
     else
-        echo "Not Linux Mint Una";
+        echo "Not Linux Mint Una"
 fi
 
 
@@ -137,11 +137,11 @@ sudo apt install neofetch -y
 phoronix=$(dpkg -s phoronix-test-suite | grep Status)
 if [ ! "$phoronix" == "Status: install ok installed" ]
 	then
-		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb;
-		sudo dpkg -i phoronix.deb;
-		sudo apt --fix-broken install -y;
+		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb
+		sudo dpkg -i phoronix.deb
+		sudo apt --fix-broken install -y
 	else
-		echo "Phoronix-test-suite is already installed.";
+		echo "Phoronix-test-suite is already installed."
 fi
 
 # install hardinfo
@@ -160,25 +160,25 @@ sudo apt install gnome-disk-utility -y
 adobe=$(dpkg -s adobereader-enu | grep Status)
 if [ ! "$adobe" == "Status: install ok installed" ]
 	then
-		sudo apt update;
-		sudo dpkg --add-architecture i386;
-		sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y;
-		wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb;
-		sudo dpkg -i adobe.deb;
+		sudo apt update
+		sudo dpkg --add-architecture i386
+		sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y
+		wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb
+		sudo dpkg -i adobe.deb
 	else
-		echo "Adobe Reader already installed.";
+		echo "Adobe Reader already installed."
 fi
 
 # set up the sensors
 sensors=$(dpkg -s lm-sensors | grep Status)
 if [ ! "$sensors" == "Status: install ok installed" ]
 	then
-		echo "Installing lm-sensors";
-		sudo apt install lm-sensors -y;
-		sudo sensors-detect;
-		sensors > /home/$USER/Desktop/sensors.txt;
+		echo "Installing lm-sensors"
+		sudo apt install lm-sensors -y
+		sudo sensors-detect
+		sensors > /home/$USER/Desktop/sensors.txt
 	else
-		echo "Lm-sensors is already installed.";
+		echo "Lm-sensors is already installed."
 fi
 
 # This setting applies to Xubuntu 22.04 only
@@ -187,8 +187,8 @@ distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
-		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://';
-		echo 'Default DVD player set to VLC';	
+		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
+		echo 'Default DVD player set to VLC'	
 		sudo apt install plank -y
 		# copy our custom plank launcher to /etc/skel so other new users get planked correctly		
 		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
@@ -211,18 +211,18 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 else
 		cd $currentdir
 		rm plank-dock1.tar.gz
-		echo 'Not focal';
+		echo 'Not focal'
 fi
 
 
 # remove the old deb files
 cd $currentdir
 
-if [ $distro == 'DISTRIB_CODENAME=jammy' || $distro == 'DISTRIB_CODENAME=focal' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
 	then
-		rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb;
+		rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb
 	else
-		rm adobe.deb phoronix.deb;
+		rm adobe.deb phoronix.deb
 fi
 
 
