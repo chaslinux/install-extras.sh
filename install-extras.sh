@@ -6,6 +6,8 @@
 #
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
 #
+# Update 08/15/2022 - Removed stacer, geany, tuxpaint, and aptitude. Added a 
+# newer version of Phoronix Test Suite, and added cpu-x hardware tool.
 # Update 06/10/2022 - June update: added basic support for Linux Mint Una
 # Update 04/22/2022 - Added line to set VLC as default player for DVDs on Ubuntu Jammy
 # also shifted -y switch to the end of apt install programname since Linux Mint doesn't like
@@ -73,11 +75,12 @@ fi
 
 
 # install htop, mc, curl, git and build-essential because they're awesome tools
-sudo apt install htop mc curl git build-essential -y
+sudo apt install htop mc curl git build-essential acpi -y
 
 # install Timeshift for system backups
-echo "Installing Timeshift, Stacer, Steam and MS TTF Fonts"
-sudo apt install timeshift stacer steam ttf-mscorefonts-installer geany -y
+# removed stacer and geany 08/15/2022
+echo "Installing Timeshift, Steam and MS TTF Fonts"
+sudo apt install timeshift steam ttf-mscorefonts-installer -y
 
 
 # install cheese
@@ -96,9 +99,10 @@ sudo apt install msttcorefonts -y
 echo "Installing gstreamer1.0-plugins-ugly"
 sudo apt install gstreamer1.0-plugins-ugly -y
 
+# Remove tuxpaint 08/15/2022
 # installing tuxpaint
-echo "Installing tuxpaint"
-sudo apt install tuxpaint -y
+# echo "Installing tuxpaint"
+#sudo apt install tuxpaint -y
 
 # installing DVD decryption software
 echo "Installing libdvd-pkg"
@@ -109,9 +113,10 @@ sudo dpkg-reconfigure libdvd-pkg
 echo "Installing Inkscape"
 sudo apt install inkscape -y
 
+# Remove aptitude 2022
 # installing aptitude
-echo "Installing aptitude"
-sudo apt install aptitude -y
+# echo "Installing aptitude"
+# sudo apt install aptitude -y
 
 # installing handbrake and winff
 echo "Installing handbrake and winff"
@@ -134,18 +139,19 @@ sudo apt install audacity -y
 sudo apt install neofetch -y
 
 # install phoronix-test-suite
+# Updated for 10.8.4 on 08/15/2022
 phoronix=$(dpkg -s phoronix-test-suite | grep Status)
 if [ ! "$phoronix" == "Status: install ok installed" ]
 	then
-		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.6.1_all.deb
+		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.8.4_all.deb
 		sudo dpkg -i phoronix.deb
 		sudo apt --fix-broken install -y
 	else
 		echo "Phoronix-test-suite is already installed."
 fi
 
-# install hardinfo
-sudo apt install hardinfo -y
+# install hardinfo cpu-x
+sudo apt install hardinfo cpu-x -y
 
 # install more screensavers!
 sudo apt install xscreensaver-data-extra -y
@@ -208,12 +214,16 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 		mkdir -p ~/.config/autostart
 		cp $currentdir/plank.desktop ~/.config/autostart
 		sudo cp $currentdir/plank.desktop /etc/xdg/autostart
-else
+	else
 		cd $currentdir
 		rm plank-dock1.tar.gz
-		echo 'Not focal'
+		echo 'Focal'
 fi
 
+# check if this appears to be a laptop and if so install tlp and powertop
+if [ -d "/proc/acpi/button/lid" ]; then
+	sudo apt install tlp powertop-1.13 -y
+fi
 
 # remove the old deb files
 cd $currentdir
