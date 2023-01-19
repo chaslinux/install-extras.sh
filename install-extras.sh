@@ -80,7 +80,7 @@ sudo apt install htop mc curl git build-essential acpi -y
 # install Timeshift for system backups
 # removed stacer and geany 08/15/2022
 echo "Installing Timeshift, Steam and MS TTF Fonts"
-sudo apt install timeshift steam ttf-mscorefonts-installer -y
+sudo DEBIAN_FRONTEND=noninteractive apt install timeshift steam ttf-mscorefonts-installer -y
 
 
 # install cheese
@@ -106,7 +106,7 @@ sudo apt install gstreamer1.0-plugins-ugly -y
 
 # installing DVD decryption software
 echo "Installing libdvd-pkg"
-sudo apt install libdvd-pkg -y
+sudo DEBIAN_FRONTEND=noninteractive apt install libdvd-pkg -y
 sudo dpkg-reconfigure libdvd-pkg
 
 # installing Inkscape
