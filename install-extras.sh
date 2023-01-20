@@ -1,20 +1,13 @@
 #!/bin/bash
-# Script by Charles McColm, cr@theworkingcentre.org
+# Script started by Charles McColm, cr@theworkingcentre.org
 # for The Working Centre's Computer Recycling Project
 # Installs a bunch of extra software that's useful for our
 # Xubuntu 20.04, 22.04, and now Linux Mint Una
+# Special thanks to Cecylia Bocovich for assistance with automating parts of the script
+# https://github.com/cohosh
 #
 # Just run as ./install-extras.sh, don't run as sudo ./install-extras.sh
-#
-# Update 08/15/2022 - Removed stacer, geany, tuxpaint, and aptitude. Added a 
-# newer version of Phoronix Test Suite, and added cpu-x hardware tool.
-# Update 06/10/2022 - June update: added basic support for Linux Mint Una
-# Update 04/22/2022 - Added line to set VLC as default player for DVDs on Ubuntu Jammy
-# also shifted -y switch to the end of apt install programname since Linux Mint doesn't like
-# it after apt install. Added plank for Xubuntu 22.04 with a customization based on the software
-# installed here.
-# Update 03/09/2022 - Added MS Office 265 web desktop apps, chromium, and freac
-# I'd like to make freac the default cd media player in the near future
+
 
 # set the current directory
 currentdir=$(pwd)
