@@ -100,7 +100,7 @@ sudo apt install gstreamer1.0-plugins-ugly -y
 # installing DVD decryption software
 echo "Installing libdvd-pkg"
 sudo DEBIAN_FRONTEND=noninteractive apt install libdvd-pkg -y
-sudo dpkg-reconfigure libdvd-pkg
+sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure libdvd-pkg
 
 # installing Inkscape
 echo "Installing Inkscape"
