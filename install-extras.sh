@@ -70,6 +70,9 @@ fi
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt install htop mc curl git build-essential acpi -y
 
+# install webp-pixbuf-loader because it lets you preview webp images in thunar and load them in ristretto
+sudo apt install webp-pixbuf-loader -y
+
 # install Timeshift for system backups
 # removed stacer and geany 08/15/2022
 echo "Installing Timeshift, Steam and MS TTF Fonts"
