@@ -70,8 +70,14 @@ fi
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt install htop mc curl git build-essential acpi -y
 
-# install webp-pixbuf-loader because it lets you preview webp images in thunar and load them in ristretto
-sudo apt install webp-pixbuf-loader -y
+# Install webp support, but only for jammy
+if [ $distro == 'DISTRIB_CODENAME=jammy' ]
+	then
+		# install webp-pixbuf-loader because it lets you preview webp images in thunar and load them in ristretto
+		sudo apt install webp-pixbuf-loader -y
+	else
+		echo "Not Jammy, so no webp-pixbuf-loader"
+fi	
 
 # install Timeshift for system backups
 # removed stacer and geany 08/15/2022
@@ -88,8 +94,9 @@ echo "Installing VLC"
 sudo apt install vlc -y
 
 # installing msttcorefonts
+# 02/06/2022 - added DEBIAN_FRONTEND=noninteractive because I saw a Y/N font prompt on a system I'd stepped away from
 echo "Installing msttcorefonts"
-sudo apt install msttcorefonts -y
+sudo DEBIAN_FRONTEND=noninteractive apt install msttcorefonts -y
 
 # installing gstreamer1.0-plugins-ugly
 echo "Installing gstreamer1.0-plugins-ugly"
@@ -133,21 +140,6 @@ sudo apt install audacity -y
 
 # install neofetch
 sudo apt install neofetch -y
-
-# Commented out 08/19/2022 because I got our IP banned while trying to automate wget to 
-# grab the latest phoronix-test-suite. Wish the latest was just phoronix-latest.deb.
-#
-# install phoronix-test-suite
-# Updated for 10.8.4 on 08/15/2022
-#phoronix=$(dpkg -s phoronix-test-suite | grep Status)
-#if [ ! "$phoronix" == "Status: install ok installed" ]
-#	then
-#		wget -O phoronix.deb http://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.8.4_all.deb
-#		sudo dpkg -i phoronix.deb
-#		sudo apt --fix-broken install -y
-#	else
-#		echo "Phoronix-test-suite is already installed."
-#fi
 
 # install hardinfo cpu-x
 sudo apt install hardinfo cpu-x -y
