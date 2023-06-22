@@ -19,6 +19,8 @@ sudo apt update && sudo apt upgrade -y
 distro=$(cat /etc/lsb-release | grep CODENAME)
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
 	then
+ 	# install Martin Wimpress' Antsy Alien Attack Pico
+  	sudo snap install antsy-alien-attack-pico
         # install Microsoft Office 365 web apps
         sudo snap install --beta office365webdesktop
 
