@@ -128,7 +128,7 @@ sudo apt install handbrake winff -y
 # installing games
 # added icebreaker 10/27/2021
 echo "Installing a bunch of games"
-sudo apt install lbreakout2 freedroid frozen-bubble lincity-ng kobodeluxe aisleriot gnome-mahjongg pysolfc icebreaker supertux -y
+sudo apt install lbreakout2 freedroid frozen-bubble kobodeluxe aisleriot gnome-mahjongg pysolfc icebreaker supertux mrrescue sdlpop marsshooter caveexpress -y
 
 # installing hydrogen drum kit and kits
 echo "Installing Hydrogen"
