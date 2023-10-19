@@ -115,8 +115,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt install libdvd-pkg -y
 sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure libdvd-pkg
 
 # installing Inkscape
-echo "Installing Inkscape"
-sudo apt install inkscape -y
+echo "Installing Inkscape & gtk-vector-screenshot"
+sudo apt install inkscape gtk-vector-screenshot -y
 
 # Remove aptitude 2022
 # installing aptitude
