@@ -19,39 +19,41 @@ sudo apt update && sudo apt upgrade -y
 distro=$(cat /etc/lsb-release | grep CODENAME)
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
 	then
- 	# install Martin Wimpress' Antsy Alien Attack Pico
-  	sudo snap install antsy-alien-attack-pico
-        # install Microsoft Office 365 web apps
-        sudo snap install --beta office365webdesktop
+	 	# install Martin Wimpress' Antsy Alien Attack Pico
+	  	sudo snap install antsy-alien-attack-pico
+		# install Microsoft Office 365 web apps
+		sudo snap install --beta office365webdesktop
 
-        # install chromium web browser
-        sudo snap install chromium
+		# install chromium web browser
+		sudo snap install chromium
 
-        # install freac for audio CD playback and ripping
-        sudo snap install freac
-        # Install OnlyOffice 7.0 since it looks a bit closer to MS Office
-        onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
-        if [ ! "$onlyoffice" == "Status: install ok installed" ]
-        	then
-        		wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
-        		sudo dpkg -i onlyoffice.deb
-        		sudo apt --fix-broken install -y
-        	else
-        		echo "OnlyOffice is already installed"
-        fi
-        # install Zoom for conferencing
-        zoom=$(dpkg -s zoom | grep Status)
-        if [ ! "$zoom" == "Status: install ok installed" ]
-	        then
-		        echo "Installing Zoom"
-		        wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
-		        sudo dpkg -i zoom.deb
-		        sudo apt --fix-broken install -y
-	        else
-		        echo "Zoom is already installed"
-        fi
+		# install freac for audio CD playback and ripping
+		sudo snap install freac
 
-    else
+		# Install OnlyOffice 7.0 since it looks a bit closer to MS Office
+		onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
+		if [ ! "$onlyoffice" == "Status: install ok installed" ]
+			then
+				wget -O onlyoffice.deb https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
+				sudo dpkg -i onlyoffice.deb
+				sudo apt --fix-broken install -y
+			else
+				echo "OnlyOffice is already installed"
+		fi
+
+		# install Zoom for conferencing
+		zoom=$(dpkg -s zoom | grep Status)
+		if [ ! "$zoom" == "Status: install ok installed" ]
+			then
+			  echo "Installing Zoom"
+			  wget -O zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
+			  sudo dpkg -i zoom.deb
+			  sudo apt --fix-broken install -y
+			else
+			  echo "Zoom is already installed"
+		fi
+
+	else
         echo "Not a modern version of *buntu"
 fi
 
@@ -103,6 +105,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt install msttcorefonts -y
 # installing gstreamer1.0-plugins-ugly
 echo "Installing gstreamer1.0-plugins-ugly"
 sudo apt install gstreamer1.0-plugins-ugly -y
+
+# install plugins to allow parole to play movie DVDs
+sudo apt install gstreamer1.0-plugins-bad* -y
 
 # Remove tuxpaint 08/15/2022
 # installing tuxpaint
@@ -186,8 +191,8 @@ distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
-		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
-		echo 'Default DVD player set to VLC'	
+		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'parole --device=%d'
+		echo 'Default DVD player set to Parole'	
 		sudo apt install plank -y
 		# copy our custom plank launcher to /etc/skel so other new users get planked correctly		
 		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
