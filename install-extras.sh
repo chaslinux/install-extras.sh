@@ -90,8 +90,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt install timeshift steam ttf-mscorefonts-
 
 
 # install cheese
-echo "Installing Cheese"
-sudo apt install cheese -y
+echo "Installing Cheese and guvcview"
+sudo apt install cheese guvcview -y
 
 # installing VLC
 echo "Installing VLC"
@@ -191,8 +191,8 @@ distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
-		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'parole --device=%d'
-		echo 'Default DVD player set to Parole'	
+		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
+		echo 'Default DVD player set to VLC'	
 		sudo apt install plank -y
 		# copy our custom plank launcher to /etc/skel so other new users get planked correctly		
 		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
