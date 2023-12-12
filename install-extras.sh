@@ -89,9 +89,9 @@ echo "Installing Timeshift, Steam and MS TTF Fonts"
 sudo DEBIAN_FRONTEND=noninteractive apt install timeshift steam ttf-mscorefonts-installer -y
 
 
-# install cheese
-echo "Installing Cheese and guvcview"
-sudo apt install cheese guvcview -y
+# install guvcview - we used to install cheese, but it has issues with MacBook Air 2015-2017 facetime drivers
+echo "Installing guvcview"
+sudo apt install guvcview -y
 
 # installing VLC
 echo "Installing VLC"
