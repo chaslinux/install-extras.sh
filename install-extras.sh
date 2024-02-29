@@ -221,6 +221,7 @@ fi
 # check if this appears to be a laptop and if so install tlp and powertop
 if [ -d "/proc/acpi/button/lid" ]; then
 	sudo apt install tlp powertop-1.13 -y
+	sudo service enable tlp
 fi
 
 # remove the old deb files
