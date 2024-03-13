@@ -160,6 +160,9 @@ sudo apt install putty -y
 # install gnome-disk-utility
 sudo apt install gnome-disk-utility -y
 
+# install tools to read MacOS formatted drives
+sudo apt install hfsprogs hfsplus hfsutils -y
+
 # install an old version of Adobe Acrobat Reader in case user needs to read "secure" PDFs
 adobe=$(dpkg -s adobereader-enu | grep Status)
 if [ ! "$adobe" == "Status: install ok installed" ]
@@ -191,6 +194,7 @@ distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
+		sudo apt -y --purge remove ubuntu-advantage-tools
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
 		echo 'Default DVD player set to VLC'	
 		sudo apt install plank -y
