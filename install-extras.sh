@@ -194,7 +194,6 @@ distro=$(cat /etc/lsb-release | grep CODENAME)
 
 if [ $distro == 'DISTRIB_CODENAME=jammy' ]
 	then
-		sudo apt -y --purge remove ubuntu-advantage-tools
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
 		echo 'Default DVD player set to VLC'	
 		sudo apt install plank -y
