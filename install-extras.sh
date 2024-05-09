@@ -17,7 +17,7 @@ currentdir=$(pwd)
 sudo apt update && sudo apt upgrade -y
 
 distro=$(cat /etc/lsb-release | grep CODENAME)
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
 	then
 	 	# install Martin Wimpress' Antsy Alien Attack Pico
 	  	sudo snap install antsy-alien-attack-pico
@@ -75,7 +75,7 @@ fi
 sudo apt install htop mc curl git build-essential acpi -y
 
 # Install webp support, but only for jammy
-if [ $distro == 'DISTRIB_CODENAME=jammy' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
 	then
 		# install webp-pixbuf-loader because it lets you preview webp images in thunar and load them in ristretto
 		sudo apt install webp-pixbuf-loader -y
@@ -163,19 +163,6 @@ sudo apt install gnome-disk-utility -y
 # install tools to read MacOS formatted drives
 sudo apt install hfsprogs hfsplus hfsutils -y
 
-# install an old version of Adobe Acrobat Reader in case user needs to read "secure" PDFs
-adobe=$(dpkg -s adobereader-enu | grep Status)
-if [ ! "$adobe" == "Status: install ok installed" ]
-	then
-		sudo apt update
-		sudo dpkg --add-architecture i386
-		sudo apt install libxml2:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 libatk-adaptor:i386 -y
-		wget -O adobe.deb http://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb
-		sudo dpkg -i adobe.deb
-	else
-		echo "Adobe Reader already installed."
-fi
-
 # set up the sensors
 sensors=$(dpkg -s lm-sensors | grep Status)
 if [ ! "$sensors" == "Status: install ok installed" ]
@@ -192,32 +179,11 @@ fi
 # set VLC to be the default DVD player since parole doesn't play in Ubuntu 22.04
 distro=$(cat /etc/lsb-release | grep CODENAME)
 
-if [ $distro == 'DISTRIB_CODENAME=jammy' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
 	then
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
 		echo 'Default DVD player set to VLC'	
-		sudo apt install plank -y
-		# copy our custom plank launcher to /etc/skel so other new users get planked correctly		
-		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
-		sudo cp $currentdir/plank-dock1.tar.gz /etc/skel/.config/plank/dock1/launchers
-		cd /etc/skel/.config/plank/dock1/launchers
-		sudo tar -zxvf plank-dock1.tar.gz
-		# set up plank for the current user
-		cd $currentdir
-		mkdir -p ~/.config/plank/dock1/launchers
-		cp $currentdir/plank-dock1.tar.gz ~/.config/plank/dock1/launchers
-		cd ~/.config/plank/dock1/launchers
-		tar -zxvf plank-dock1.tar.gz
-		cd $currentdir
-		plank &
-
-		# Now make copy the plank .desktop file to autostart directories
-		mkdir -p ~/.config/autostart
-		cp $currentdir/plank.desktop ~/.config/autostart
-		sudo cp $currentdir/plank.desktop /etc/xdg/autostart
 	else
-		cd $currentdir
-		rm plank-dock1.tar.gz
 		echo 'Focal'
 fi
 
@@ -230,11 +196,9 @@ fi
 # remove the old deb files
 cd $currentdir
 
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
 	then
 		rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb
 	else
-		rm adobe.deb phoronix.deb
+		rm phoronix.deb
 fi
-
-

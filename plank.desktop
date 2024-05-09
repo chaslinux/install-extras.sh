@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=plank
-Exec=/usr/bin/plank
-StartupNotify=false
-Terminal=false
