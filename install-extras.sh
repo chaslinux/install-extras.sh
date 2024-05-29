@@ -16,19 +16,16 @@ currentdir=$(pwd)
 # updated
 sudo apt update && sudo apt upgrade -y
 
+# Install flatpak and support files
+sudo apt install flatpak -y
+sudo apt install gnome-software-flatpak -y
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+
 distro=$(cat /etc/lsb-release | grep CODENAME)
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
 	then
-	 	# install Martin Wimpress' Antsy Alien Attack Pico
-	  	sudo snap install antsy-alien-attack-pico
-		# install Microsoft Office 365 web apps
-		sudo snap install --beta office365webdesktop
-
-		# install chromium web browser
-		sudo snap install chromium
-
-		# install freac for audio CD playback and ripping
-		sudo snap install freac
+		# Let's not do any snaps anymore -- this is getting ridiculous
 
 		# Install OnlyOffice 7.0 since it looks a bit closer to MS Office
 		onlyoffice=$(dpkg -s onlyoffice-desktopeditors | grep Status)
@@ -57,19 +54,7 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=foc
         echo "Not a modern version of *buntu"
 fi
 
-# This applies to Linux Mint "Una" only (install most of the stuff above without snaps!)
-if [ $distro == 'DISTRIB_CODENAME=una' ]
-    then
-        sudo apt install chromium -y
-	sudo apt install gimp -y
-        sudo flatpak update -y
-        sudo flatpak install freac -y
-        sudo flatpak install onlyoffice -y
-        sudo flatpak install zoom -y
-    else
-        echo "Not Linux Mint Una"
-fi
-
+# Removed the Linux Mint Una section
 
 # install htop, mc, curl, git and build-essential because they're awesome tools
 sudo apt install htop mc curl git build-essential acpi -y
@@ -89,9 +74,9 @@ echo "Installing Timeshift, Steam and MS TTF Fonts"
 sudo DEBIAN_FRONTEND=noninteractive apt install timeshift steam ttf-mscorefonts-installer -y
 
 
-# install guvcview - we used to install cheese, but it has issues with MacBook Air 2015-2017 facetime drivers
+# install guvcview and cheese - cheese has issues with some webcams
 echo "Installing guvcview"
-sudo apt install guvcview -y
+sudo apt install guvcview cheese -y
 
 # installing VLC
 echo "Installing VLC"
@@ -122,11 +107,6 @@ sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure libdvd-pkg
 # installing Inkscape
 echo "Installing Inkscape & gtk-vector-screenshot"
 sudo apt install inkscape gtk-vector-screenshot -y
-
-# Remove aptitude 2022
-# installing aptitude
-# echo "Installing aptitude"
-# sudo apt install aptitude -y
 
 # installing handbrake and winff
 echo "Installing handbrake and winff"
