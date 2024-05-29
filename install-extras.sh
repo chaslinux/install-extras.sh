@@ -22,22 +22,22 @@ sudo apt install gnome-software-flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Rmove SNAP completely
-sudo snap remove --purge firefox -y
-sudo snap remove --purge gnome-3-38-2004 -y
-sudo snap remove --purge gtk--common-themes -y
-sudo snap remove --purge bare -y
-sudo snap remove --purge core20 -y
-sudo snap remove --purge snapd -y
+#sudo snap remove --purge firefox -y
+#sudo snap remove --purge gnome-3-38-2004 -y
+#sudo snap remove --purge gtk--common-themes -y
+#sudo snap remove --purge bare -y
+#sudo snap remove --purge core20 -y
+#sudo snap remove --purge snapd -y
 
-sudo apt remove --autoremove snapd -y
-sudo cp nosnap.pref /etc/apt/preferences.d/*
+#sudo apt remove --autoremove snapd -y
+#sudo cp nosnap.pref /etc/apt/preferences.d/*
 
-sudo apt update
+#sudo apt update
 
 # Now install other necessary files
-sudo apt install --install-suggests gnome-software
+#sudo apt install --install-suggests gnome-software
 
-sudo flatpak install firefox -y
+#sudo flatpak install firefox -y
 
 distro=$(cat /etc/lsb-release | grep CODENAME)
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
