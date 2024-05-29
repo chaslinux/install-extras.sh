@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Install flatpak and support files
 sudo apt install flatpak -y
-sudo apt install gnome-software-flatpak -y
+sudo apt install gnome-software-plugin-flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Rmove SNAP completely
