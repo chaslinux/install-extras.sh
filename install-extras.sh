@@ -91,6 +91,14 @@ echo "Installing Timeshift, Steam and MS TTF Fonts"
 sudo DEBIAN_FRONTEND=noninteractive apt install timeshift steam ttf-mscorefonts-installer -y
 
 
+# 06/03/2024 The Steam debian package is currently broken in Xubuntu 24.04
+# if [ $distro == 'DISTRIB_CODENAME=noble' ]
+# 	then
+# 		sudo DEBIAN_FRONTEND=noninteractive apt install steam-installer -y
+# 	else
+# 		echo "Not Noble, so not installing steam-installer"
+# fi
+
 # install guvcview and cheese - cheese has issues with some webcams
 echo "Installing guvcview"
 sudo apt install guvcview cheese -y
@@ -107,13 +115,24 @@ sudo DEBIAN_FRONTEND=noninteractive apt install msttcorefonts -y
 # Microsoft has gracefully given us some cool opentype fonts, let's install those
 # Sadly they're burried in a subdirectory of a subdirectory and not named nicely, so let's do that too
 cd $currentdir
-wget https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
-unzip CascadiaCode-2404.23.zip
-rm -r ttf
-rm -r woff2
-mkdir -p CascadiaCode
-mv $currentdir/otf/static/* CascadiaCode/
-sudo cp CascadiaCode /usr/share/fonts/opentype
+
+if [ ! -e CascadiaCode-2404.23.zip ]
+	then
+		wget https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
+		unzip CascadiaCode-2404.23.zip
+		mkdir -p CascadiaCode
+		mv $currentdir/ttf/* CascadiaCode
+		sudo cp -r CascadiaCode/ /usr/share/fonts/truetype
+		rm -rf CascadiaCode/
+		rm -rf ttf/
+		rm -rf woff2/
+		mkdir -p CascadiaCode
+		mv $currentdir/otf/static/* CascadiaCode/
+		rm -rf otf/
+	else
+		echo "CascadiaCode already downloaded and unzipped"
+fi
+sudo cp -r CascadiaCode/ /usr/share/fonts/opentype
 
 # installing gstreamer1.0-plugins-ugly
 echo "Installing gstreamer1.0-plugins-ugly"
