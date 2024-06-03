@@ -74,7 +74,7 @@ fi
 # Removed the Linux Mint Una section
 
 # install htop, mc, curl, git and build-essential because they're awesome tools
-sudo apt install htop mc curl git build-essential acpi -y
+sudo apt install htop mc curl git build-essential acpi unzip -y
 
 # Install webp support, but only for jammy
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
@@ -103,6 +103,17 @@ sudo apt install vlc -y
 # 02/06/2022 - added DEBIAN_FRONTEND=noninteractive because I saw a Y/N font prompt on a system I'd stepped away from
 echo "Installing msttcorefonts"
 sudo DEBIAN_FRONTEND=noninteractive apt install msttcorefonts -y
+
+# Microsoft has gracefully given us some cool opentype fonts, let's install those
+# Sadly they're burried in a subdirectory of a subdirectory and not named nicely, so let's do that too
+cd $currentdir
+wget https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
+unzip CascadiaCode-2404.23.zip
+rm -r ttf
+rm -r woff2
+mkdir -p CascadiaCode
+mv $currentdir/otf/static/* CascadiaCode/
+sudo cp CascadiaCode /usr/share/fonts/opentype
 
 # installing gstreamer1.0-plugins-ugly
 echo "Installing gstreamer1.0-plugins-ugly"
