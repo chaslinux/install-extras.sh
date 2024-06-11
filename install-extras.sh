@@ -21,24 +21,6 @@ sudo apt install flatpak -y
 sudo apt install gnome-software-plugin-flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# Rmove SNAP completely
-#sudo snap remove --purge firefox -y
-#sudo snap remove --purge gnome-3-38-2004 -y
-#sudo snap remove --purge gtk--common-themes -y
-#sudo snap remove --purge bare -y
-#sudo snap remove --purge core20 -y
-#sudo snap remove --purge snapd -y
-
-#sudo apt remove --autoremove snapd -y
-#sudo cp nosnap.pref /etc/apt/preferences.d/*
-
-#sudo apt update
-
-# Now install other necessary files
-#sudo apt install --install-suggests gnome-software
-
-#sudo flatpak install firefox -y
-
 distro=$(cat /etc/lsb-release | grep CODENAME)
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
 	then
@@ -73,8 +55,8 @@ fi
 
 # Removed the Linux Mint Una section
 
-# install htop, mc, curl, git and build-essential because they're awesome tools
-sudo apt install htop mc curl git build-essential acpi unzip -y
+# install btop, htop, mc, curl, git and build-essential because they're awesome tools
+sudo apt install btop htop mc curl git build-essential acpi unzip -y
 
 # Install webp support, but only for jammy
 if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
@@ -141,10 +123,9 @@ sudo apt install gstreamer1.0-plugins-ugly -y
 # install plugins to allow parole to play movie DVDs
 sudo apt install gstreamer1.0-plugins-bad* -y
 
-# Remove tuxpaint 08/15/2022
 # installing tuxpaint
-# echo "Installing tuxpaint"
-#sudo apt install tuxpaint -y
+echo "Installing tuxpaint"
+sudo apt install tuxpaint -y
 
 # installing DVD decryption software
 echo "Installing libdvd-pkg"
