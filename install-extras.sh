@@ -49,6 +49,24 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=foc
 			  echo "Zoom is already installed"
 		fi
 
+		# Install plank
+		sudo apt install plank -y
+		sudo mkdir -p /etc/skel/.config/plank/dock1/launchers
+		sudo cp $currentdir/plank-launchers.tar.gz /etc/skel/.config/plank/dock1/launchers
+		cd /etc/skel/.config/plank/dock1/launchers
+		sudo tar -zxvf plank-launchers.tar.gz
+		cd $currentdir
+		mkdir -p ~/.config/plank/dock1/launchers
+		cp $currentdir/plank-launchers.tar.gz ~/.config/plank/dock1/launchers
+		cd ~/.config/plank/dock1/launchers
+		tar -zxvf plank-launchers.tar.gz
+		cd $currentdir
+		plank &
+
+		# Now make copy the plank .desktop file to autostart directories
+		mkdir -p ~/.config/autostart
+		cp $currentdir/plank.desktop ~/.config/autostart
+		sudo cp $currentdir/plank.desktop /etc/xdg/autostart
 	else
         echo "Not a modern version of *buntu"
 fi
