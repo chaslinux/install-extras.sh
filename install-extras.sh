@@ -228,3 +228,6 @@ if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=foc
 	else
 		rm phoronix.deb
 fi
+
+# Remove uvcdynctrl as it seems to sometimes create enormous (200GB+) log files
+sudo apt purge uvcdynctrl -y
