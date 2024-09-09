@@ -22,7 +22,7 @@ sudo apt install gnome-software-plugin-flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 distro=$(cat /etc/lsb-release | grep CODENAME)
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "DISTRIB_CODENAME=noble" ]
 	then
 		# Let's not do any snaps anymore -- this is getting ridiculous
 
@@ -77,7 +77,7 @@ fi
 sudo apt install btop htop mc curl git build-essential acpi unzip -y
 
 # Install webp support, but only for jammy
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "DISTRIB_CODENAME=noble" ]
 	then
 		# install webp-pixbuf-loader because it lets you preview webp images in thunar and load them in ristretto
 		sudo apt install webp-pixbuf-loader -y
@@ -205,7 +205,7 @@ fi
 # set VLC to be the default DVD player since parole doesn't play in Ubuntu 22.04
 distro=$(cat /etc/lsb-release | grep CODENAME)
 
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "noble" ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == "DISTRIB_CODENAME=noble" ]
 	then
 		xfconf-query -c thunar-volman -p /autoplay-video-cds/command -s 'vlc dvd://'
 		echo 'Default DVD player set to VLC'	
@@ -222,7 +222,7 @@ fi
 # remove the old deb files
 cd $currentdir
 
-if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "noble" ]
+if [ $distro == 'DISTRIB_CODENAME=jammy' ] || [ $distro == 'DISTRIB_CODENAME=focal' ] || [ $distro == "DISTRIB_CODENAME=noble" ]
 	then
 		rm onlyoffice.deb zoom.deb phoronix.deb adobe.deb
 	else
