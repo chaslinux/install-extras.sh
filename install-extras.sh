@@ -231,3 +231,12 @@ fi
 
 # Remove uvcdynctrl as it seems to sometimes create enormous (200GB+) log files
 sudo apt purge uvcdynctrl -y
+
+if [ $distro == "DISTRIB_CODENAME=noble" ]
+	then
+		sudo apt install libc6-dev-amd64 libc6-dev-i386 libc6-dev -y
+		sudo apt install libegl1-mesa-dev libegl1 libgbm1 libgl1-mesa-dev -y
+		sudo apt install steam-libs-i386 steam-libs -y
+		wget https://cdn.akamai.steamstatic.com/client/installer/steam.deb
+		sudo dpkg -i steam.deb
+fi
