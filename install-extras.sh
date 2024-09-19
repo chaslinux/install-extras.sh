@@ -240,3 +240,6 @@ if [ $distro == "DISTRIB_CODENAME=noble" ]
 		wget https://cdn.akamai.steamstatic.com/client/installer/steam.deb
 		sudo dpkg -i steam.deb
 fi
+
+# Install software to create USB keys from Linux ISOs
+sudo apt install usb-creator-gtk -y
